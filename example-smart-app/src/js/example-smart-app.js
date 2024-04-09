@@ -22,9 +22,13 @@
                     }
                   });
 
-        $.when(pt, obv).fail(onError);
+         var medication = smart.patient.api.fetchAll({
+          type: 'MedicationRequest'
+        });
 
-        $.when(pt, obv).done(function(patient, obv) {
+        $.when(pt, obv, medication).fail(onError);
+
+        $.when(pt, obv, medication).done(function(patient, obv, medication) {
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
@@ -60,6 +64,12 @@
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
 
+          //Medications
+          var medications = medication.map(function(med) {
+            return med.medicationCodeableConcept.text;
+          });
+          p.medications = medications.join(', ');
+
           ret.resolve(p);
         });
       } else {
@@ -83,6 +93,7 @@
       diastolicbp: {value: ''},
       ldl: {value: ''},
       hdl: {value: ''},
+      medications: {value: ''}
     };
   }
 
@@ -126,6 +137,7 @@
     $('#diastolicbp').html(p.diastolicbp);
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
+    $('#medications').html(p.medications);
   };
 
 })(window);
