@@ -23,7 +23,7 @@
                   });
 
          var medication = smart.patient.api.fetchAll({
-          type: 'DiagnosticReport'
+          type: 'MedicationOrder'
         });
 
         $.when(pt, obv, medication).fail(onError);
