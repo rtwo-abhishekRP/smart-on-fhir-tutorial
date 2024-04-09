@@ -29,6 +29,10 @@
         $.when(pt, obv, medication).fail(onError);
 
         $.when(pt, obv, medication).done(function(patient, obv, medication) {
+          console.log('Patient data:', patient);
+          console.log('Observation data:', obv);
+          console.log('Medication data:', medication);
+          
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
@@ -68,8 +72,9 @@
           var medications = medication.map(function(med) {
             return med.medicationCodeableConcept.text;
           });
+          console.log('Medications:', medications);
           p.medications = medications.join(', ');
-
+          console.log('Final patient data:', p);
           ret.resolve(p);
         });
       } else {
