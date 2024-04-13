@@ -94,17 +94,34 @@ function displayMedicationList(medications) {
 
   // Iterate over each medication and add it to the list
   medications.forEach(function(medication) {
+    console.log('Medication:', medication);
+
     var medicationHtml = '<li>';
 
     // Extract medication details
     var medicationName = medication && medication.resource && medication.resource.medicationCodeableConcept && medication.resource.medicationCodeableConcept.text ? medication.resource.medicationCodeableConcept.text : 'Unknown Medication';
+    console.log('Medication Name:', medicationName);
+
     var status = medication && medication.resource && medication.resource.status ? medication.resource.status : 'Unknown';
+    console.log('Status:', status);
+
     var patientName = medication && medication.resource && medication.resource.patient && medication.resource.patient.display ? medication.resource.patient.display : 'Unknown';
+    console.log('Patient Name:', patientName);
+
     var prescriberName = medication && medication.resource && medication.resource.prescriber && medication.resource.prescriber.display ? medication.resource.prescriber.display : 'Unknown';
+    console.log('Prescriber Name:', prescriberName);
+
     var note = medication && medication.resource && medication.resource.note ? medication.resource.note : '';
+    console.log('Note:', note);
+
     var dateWritten = medication && medication.resource && medication.resource.dateWritten ? new Date(medication.resource.dateWritten).toLocaleString() : 'Unknown';
+    console.log('Date Written:', dateWritten);
+
     var validityPeriodStart = medication && medication.resource && medication.resource.dispenseRequest && medication.resource.dispenseRequest.validityPeriod && medication.resource.dispenseRequest.validityPeriod.start ? new Date(medication.resource.dispenseRequest.validityPeriod.start).toLocaleString() : 'Unknown';
+    console.log('Validity Period Start:', validityPeriodStart);
+
     var dosageInstructions = medication && medication.resource && medication.resource.dosageInstruction && medication.resource.dosageInstruction[0] && medication.resource.dosageInstruction[0].text ? medication.resource.dosageInstruction[0].text : 'Unknown Dosage Instructions';
+    console.log('Dosage Instructions:', dosageInstructions);
 
     // Construct medication HTML
     medicationHtml += '<b>Medication Name:</b> ' + medicationName + '<br>' +
@@ -123,6 +140,7 @@ function displayMedicationList(medications) {
     $('#medicationList').append(medicationHtml);
   });
 }
+
 
 
   function defaultPatient(){
