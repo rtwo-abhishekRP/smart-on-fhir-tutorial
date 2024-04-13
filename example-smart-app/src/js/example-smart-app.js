@@ -104,7 +104,7 @@ function displayMedicationList(medications) {
       '<b>Validity Period:</b> ' + medication.resource.dispenseRequest.validityPeriod.start + '</li>';
 
     // Append the medication HTML to the medicationList
-    $('#medicationList').append(medicationHtml);
+    $('#medicationList').append(medicationName);
   });
 }
 
