@@ -97,14 +97,14 @@ function displayMedicationList(medications) {
     var medicationHtml = '<li>';
 
     // Extract medication details
-    var medicationName = medication.resource.medicationCodeableConcept ? medication.resource.medicationCodeableConcept.text : 'Unknown Medication';
-    var status = medication.resource.status ? medication.resource.status : 'Unknown';
-    var patientName = medication.resource.patient && medication.resource.patient.display ? medication.resource.patient.display : 'Unknown';
-    var prescriberName = medication.resource.prescriber && medication.resource.prescriber.display ? medication.resource.prescriber.display : 'Unknown';
-    var note = medication.resource.note ? medication.resource.note : '';
-    var dateWritten = medication.resource.dateWritten ? new Date(medication.resource.dateWritten).toLocaleString() : 'Unknown';
-    var validityPeriodStart = medication.resource.dispenseRequest && medication.resource.dispenseRequest.validityPeriod && medication.resource.dispenseRequest.validityPeriod.start ? new Date(medication.resource.dispenseRequest.validityPeriod.start).toLocaleString() : 'Unknown';
-    var dosageInstructions = medication.resource.dosageInstruction && medication.resource.dosageInstruction[0] && medication.resource.dosageInstruction[0].text ? medication.resource.dosageInstruction[0].text : 'Unknown Dosage Instructions';
+    var medicationName = medication && medication.resource && medication.resource.medicationCodeableConcept && medication.resource.medicationCodeableConcept.text ? medication.resource.medicationCodeableConcept.text : 'Unknown Medication';
+    var status = medication && medication.resource && medication.resource.status ? medication.resource.status : 'Unknown';
+    var patientName = medication && medication.resource && medication.resource.patient && medication.resource.patient.display ? medication.resource.patient.display : 'Unknown';
+    var prescriberName = medication && medication.resource && medication.resource.prescriber && medication.resource.prescriber.display ? medication.resource.prescriber.display : 'Unknown';
+    var note = medication && medication.resource && medication.resource.note ? medication.resource.note : '';
+    var dateWritten = medication && medication.resource && medication.resource.dateWritten ? new Date(medication.resource.dateWritten).toLocaleString() : 'Unknown';
+    var validityPeriodStart = medication && medication.resource && medication.resource.dispenseRequest && medication.resource.dispenseRequest.validityPeriod && medication.resource.dispenseRequest.validityPeriod.start ? new Date(medication.resource.dispenseRequest.validityPeriod.start).toLocaleString() : 'Unknown';
+    var dosageInstructions = medication && medication.resource && medication.resource.dosageInstruction && medication.resource.dosageInstruction[0] && medication.resource.dosageInstruction[0].text ? medication.resource.dosageInstruction[0].text : 'Unknown Dosage Instructions';
 
     // Construct medication HTML
     medicationHtml += '<b>Medication Name:</b> ' + medicationName + '<br>' +
@@ -123,6 +123,7 @@ function displayMedicationList(medications) {
     $('#medicationList').append(medicationHtml);
   });
 }
+
 
   function defaultPatient(){
     return {
