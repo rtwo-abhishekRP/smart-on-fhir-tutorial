@@ -94,7 +94,8 @@ function displayMedicationList(medications) {
 
   // Iterate over each medication and add it to the list
   medications.forEach(function(medication) {
-    var medicationHtml = '<li><b>Medication Name:</b> ' + medication.resource.medicationCodeableConcept.text + '<br>' +
+   var medicationName = medication.resource.medicationCodeableConcept ? medication.resource.medicationCodeableConcept.text : 'Unknown Medication';
+    medicationHtml += '<li><b>Medication Name:</b> ' + medicationName + '</li>';
       '<b>Status:</b> ' + medication.resource.status + '<br>' +
       '<b>Patient Name:</b> ' + medication.resource.patient.display + '<br>' +
       '<b>Prescriber:</b> ' + medication.resource.prescriber.display + '<br>' +
