@@ -97,8 +97,8 @@ function displayMedicationList(medications) {
     var medicationHtml = '<li>';
 
     // Check if medication.resource.medicationCodeableConcept exists before accessing its text property
-    var medicationName = medication.resource.medicationCodeableConcept ? medication.resource.medicationCodeableConcept.text : 'Unknown Medication';
-    medicationHtml += '<b>Medication Name:</b> ' + medicationName + '<br>';
+    // var medicationName = medication.resource.medicationCodeableConcept ? medication.resource.medicationCodeableConcept.text : 'Unknown Medication';
+    // medicationHtml += '<b>Medication Name:</b> ' + medicationName + '<br>';
 
     // Add additional medication details if available
     if (medication.resource.status) {
