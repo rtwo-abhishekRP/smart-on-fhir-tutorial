@@ -99,7 +99,7 @@ function displayMedicationList(medications) {
     var medicationHtml = '<li>';
 
     // Extract medication details
-    var medicationName = medication && medication.resource && medication.resource.medicationCodeableConcept && medication.resource.medicationCodeableConcept.text ? medication.resource.medicationCodeableConcept.text : 'Unknown Medication';
+    var medicationName = (medication && medication.resource && medication.resource.medicationCodeableConcept && medication.resource.medicationCodeableConcept.text) ? medication.resource.medicationCodeableConcept.text : 'Unknown Medication';
     console.log('Medication Name:', medicationName);
 
     var status = medication && medication.resource && medication.resource.status ? medication.resource.status : 'Unknown';
@@ -140,6 +140,7 @@ function displayMedicationList(medications) {
     $('#medicationList').append(medicationHtml);
   });
 }
+
 
 
 
