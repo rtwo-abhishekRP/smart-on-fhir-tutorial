@@ -70,11 +70,11 @@
 
           //Medications
           var medications = medication.map(function(med) {
-            return med.medicationCodeableConcept.text;
+            return med.resource.medicationCodeableConcept && med.resource.medicationCodeableConcept.text ? med.resource.medicationCodeableConcept.text : 'Unknown Medication';
           });
           console.log('Medications:', medications);
           p.medications = medications.join('<br>');
-          p.medications = displayMedicationList(medication);
+          // p.medications = displayMedicationList(medication);
           console.log('Final patient data:', p);
           ret.resolve(p);
         });
