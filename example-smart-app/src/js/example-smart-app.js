@@ -73,7 +73,7 @@
             return med.medicationCodeableConcept.text;
           });
           console.log('Medications:', medications);
-          p.medications = medications.join(', ');
+          p.medications = medications.join('<br>');
           console.log('Final patient data:', p);
           ret.resolve(p);
         });
@@ -86,6 +86,28 @@
     return ret.promise();
 
   };
+
+  function formatMedication(med) {
+    var medicationName = med.medicationCodeableConcept.text;
+    var dosageInstruction = med.dosageInstruction[0].text;
+    var status = med.status;
+    var patientName = med.text.div.match(/<b>Patient Name<\/b>: (.*?)<\/p>/)[1];
+    var prescriber = med.prescriber.display;
+    var note = med.note;
+    var dateWritten = new Date(med.dateWritten).toLocaleString();
+    var validityPeriod = new Date(med.dispenseRequest.validityPeriod.start).toLocaleDateString();
+    
+    // Constructing medication HTML string
+    var medicationHtml = '<b>Medication Name:</b> ' + medicationName + '<br>' +
+                         '<b>Dosage Instructions:</b> ' + dosageInstruction + '<br>' +
+                         '<b>Status:</b> ' + status + '<br>' +
+                         '<b>Patient Name:</b> ' + patientName + '<br>' +
+                         '<b>Prescriber:</b> ' + prescriber + '<br>' +
+                         '<b>Note:</b> ' + note + '<br>' +
+                         '<b>Date Written:</b> ' + dateWritten + '<br>' +
+                         '<b>Validity Period:</b> ' + validityPeriod;
+    return medicationHtml;
+  }
 
   function defaultPatient(){
     return {
