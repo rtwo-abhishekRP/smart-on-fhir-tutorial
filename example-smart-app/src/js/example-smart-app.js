@@ -94,19 +94,40 @@ function displayMedicationList(medications) {
 
   // Iterate over each medication and add it to the list
   medications.forEach(function(medication) {
-   var medicationName = medication.resource.medicationCodeableConcept ? medication.resource.medicationCodeableConcept.text : 'Unknown Medication';
-    medicationHtml += '<li><b>Medication Name:</b> ' + medicationName + '</li>';
-      '<b>Status:</b> ' + medication.resource.status + '<br>' +
-      '<b>Patient Name:</b> ' + medication.resource.patient.display + '<br>' +
-      '<b>Prescriber:</b> ' + medication.resource.prescriber.display + '<br>' +
-      '<b>Note:</b> ' + medication.resource.note + '<br>' +
-      '<b>Date Written:</b> ' + medication.resource.dateWritten + '<br>' +
-      '<b>Validity Period:</b> ' + medication.resource.dispenseRequest.validityPeriod.start + '</li>';
+    var medicationHtml = '<li>';
+
+    // Check if medication.resource.medicationCodeableConcept exists before accessing its text property
+    var medicationName = medication.resource.medicationCodeableConcept ? medication.resource.medicationCodeableConcept.text : 'Unknown Medication';
+    medicationHtml += '<b>Medication Name:</b> ' + medicationName + '<br>';
+
+    // Add additional medication details if available
+    if (medication.resource.status) {
+      medicationHtml += '<b>Status:</b> ' + medication.resource.status + '<br>';
+    }
+    if (medication.resource.patient && medication.resource.patient.display) {
+      medicationHtml += '<b>Patient Name:</b> ' + medication.resource.patient.display + '<br>';
+    }
+    if (medication.resource.prescriber && medication.resource.prescriber.display) {
+      medicationHtml += '<b>Prescriber:</b> ' + medication.resource.prescriber.display + '<br>';
+    }
+    if (medication.resource.note) {
+      medicationHtml += '<b>Note:</b> ' + medication.resource.note + '<br>';
+    }
+    if (medication.resource.dateWritten) {
+      medicationHtml += '<b>Date Written:</b> ' + medication.resource.dateWritten + '<br>';
+    }
+    if (medication.resource.dispenseRequest && medication.resource.dispenseRequest.validityPeriod && medication.resource.dispenseRequest.validityPeriod.start) {
+      medicationHtml += '<b>Validity Period:</b> ' + medication.resource.dispenseRequest.validityPeriod.start + '<br>';
+    }
+
+    // Close the list item tag
+    medicationHtml += '</li>';
 
     // Append the medication HTML to the medicationList
-    $('#medicationList').append(medicationName);
+    $('#medicationList').append(medicationHtml);
   });
 }
+
 
 
   function defaultPatient(){
