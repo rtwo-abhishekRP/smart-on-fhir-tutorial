@@ -94,39 +94,49 @@ function displayMedicationList(medications) {
 
   // Iterate over each medication and add it to the list
   medications.forEach(function(medication) {
-    console.log('Medication:', medication);
-
     var medicationHtml = '<li>';
 
     // Extract medication details
-    var medicationName = (medication && medication.resource && medication.resource.medicationCodeableConcept && medication.resource.medicationCodeableConcept.text) ? medication.resource.medicationCodeableConcept.text : 'Unknown Medication';
-    console.log('Medication Name:', medicationName);
+    var medicationName = 'Unknown Medication';
+    var status = 'Unknown';
+    var prescriberName = 'Unknown';
+    var note = '';
+    var dateWritten = 'Unknown';
+    var validityPeriodStart = 'Unknown';
+    var dosageInstructions = 'Unknown Dosage Instructions';
 
-    var status = medication && medication.resource && medication.resource.status ? medication.resource.status : 'Unknown';
-    console.log('Status:', status);
+    if (medication && medication.resource && medication.resource.medicationCodeableConcept && medication.resource.medicationCodeableConcept.text) {
+      medicationName = medication.resource.medicationCodeableConcept.text;
+    }
 
-    var patientName = medication && medication.resource && medication.resource.patient && medication.resource.patient.display ? medication.resource.patient.display : 'Unknown';
-    console.log('Patient Name:', patientName);
+    if (medication && medication.resource && medication.resource.status) {
+      status = medication.resource.status;
+    }
 
-    var prescriberName = medication && medication.resource && medication.resource.prescriber && medication.resource.prescriber.display ? medication.resource.prescriber.display : 'Unknown';
-    console.log('Prescriber Name:', prescriberName);
+    if (medication && medication.resource && medication.resource.prescriber && medication.resource.prescriber.display) {
+      prescriberName = medication.resource.prescriber.display;
+    }
 
-    var note = medication && medication.resource && medication.resource.note ? medication.resource.note : '';
-    console.log('Note:', note);
+    if (medication && medication.resource && medication.resource.note) {
+      note = medication.resource.note;
+    }
 
-    var dateWritten = medication && medication.resource && medication.resource.dateWritten ? new Date(medication.resource.dateWritten).toLocaleString() : 'Unknown';
-    console.log('Date Written:', dateWritten);
+    if (medication && medication.resource && medication.resource.dateWritten) {
+      dateWritten = new Date(medication.resource.dateWritten).toLocaleString();
+    }
 
-    var validityPeriodStart = medication && medication.resource && medication.resource.dispenseRequest && medication.resource.dispenseRequest.validityPeriod && medication.resource.dispenseRequest.validityPeriod.start ? new Date(medication.resource.dispenseRequest.validityPeriod.start).toLocaleString() : 'Unknown';
-    console.log('Validity Period Start:', validityPeriodStart);
+    if (medication && medication.resource && medication.resource.dispenseRequest && medication.resource.dispenseRequest.validityPeriod && medication.resource.dispenseRequest.validityPeriod.start) {
+      validityPeriodStart = new Date(medication.resource.dispenseRequest.validityPeriod.start).toLocaleString();
+    }
 
-    var dosageInstructions = medication && medication.resource && medication.resource.dosageInstruction && medication.resource.dosageInstruction[0] && medication.resource.dosageInstruction[0].text ? medication.resource.dosageInstruction[0].text : 'Unknown Dosage Instructions';
-    console.log('Dosage Instructions:', dosageInstructions);
+    if (medication && medication.resource && medication.resource.dosageInstruction && medication.resource.dosageInstruction[0] && medication.resource.dosageInstruction[0].text) {
+      dosageInstructions = medication.resource.dosageInstruction[0].text;
+    }
 
     // Construct medication HTML
     medicationHtml += '<b>Medication Name:</b> ' + medicationName + '<br>' +
                       '<b>Status:</b> ' + status + '<br>' +
-                      '<b>Patient Name:</b> ' + patientName + '<br>' +
+                      '<b>Patient Name:</b> ' + (medication.resource && medication.resource.patient && medication.resource.patient.display ? medication.resource.patient.display : 'Unknown') + '<br>' +
                       '<b>Prescriber:</b> ' + prescriberName + '<br>' +
                       '<b>Note:</b> ' + note + '<br>' +
                       '<b>Date Written:</b> ' + dateWritten + '<br>' +
@@ -140,6 +150,7 @@ function displayMedicationList(medications) {
     $('#medicationList').append(medicationHtml);
   });
 }
+
 
 
 
