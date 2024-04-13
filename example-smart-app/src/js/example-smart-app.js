@@ -68,10 +68,13 @@
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
 
-          //Medications
-          var medications = medication.map(function(med) {
-            return med.resource.medicationCodeableConcept && med.resource.medicationCodeableConcept.text ? med.resource.medicationCodeableConcept.text : 'Unknown Medication';
+          var medications = [];
+
+         if (medication && medication.length > 0) {
+            medications = medication.map(function(med) {
+          return med.resource && med.resource.medicationCodeableConcept && med.resource.medicationCodeableConcept.text ? med.resource.medicationCodeableConcept.text : 'Unknown Medication';
           });
+        }
           console.log('Medications:', medications);
           p.medications = medications.join('<br>');
           // p.medications = displayMedicationList(medication);
