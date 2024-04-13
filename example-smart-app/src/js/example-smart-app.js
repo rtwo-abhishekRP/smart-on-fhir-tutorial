@@ -106,7 +106,10 @@
                          '<b>Note:</b> ' + note + '<br>' +
                          '<b>Date Written:</b> ' + dateWritten + '<br>' +
                          '<b>Validity Period:</b> ' + validityPeriod;
+
+    $('#medicationList').append(medicationHtml);
     return medicationHtml;
+    
   }
 
   function defaultPatient(){
