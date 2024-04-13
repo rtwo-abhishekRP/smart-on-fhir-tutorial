@@ -74,6 +74,7 @@
           });
           console.log('Medications:', medications);
           p.medications = medications.join('<br>');
+          p.medications = displayMedicationList(medication);
           console.log('Final patient data:', p);
           ret.resolve(p);
         });
