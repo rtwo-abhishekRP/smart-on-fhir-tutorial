@@ -32,7 +32,7 @@
           console.log('Patient data:', patient);
           console.log('Observation data:', obv);
           console.log('Medication data:', medication);
-          
+          displayMedicationList(medication);
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
